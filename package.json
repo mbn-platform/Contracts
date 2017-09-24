@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.1.2",
     "zeppelin-solidity": "^1.2.0"
   }
 }
