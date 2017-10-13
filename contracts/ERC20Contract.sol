@@ -11,7 +11,7 @@ contract ERC20Contract is Ownable {
   uint  public constant totalNumberOfTokens = 10000000;
 
   uint public constant tokenPrice  = 100;
-  uint public constant minTokensForSale = 2000000;
+  uint public constant minTokensForSale = 20000;
   uint totalUsedTokens;
 
   mapping (address => uint256) balances;

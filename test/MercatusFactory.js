@@ -22,6 +22,8 @@ contract('Mercatus', function(accounts) {
     let miTransaction = await mf.makeInstance(ERC20Contract.address, accounts[0], 30, 20, 1337, 31337, 100 , 'morat', accounts[1], 'borat' , accounts[2],{from:accounts[1],gas:1000000});
     let miAddr = (miTransaction.logs[0].args.instance);
     mi = MercatusInstance.at(miAddr);
+    console.log(`ERC20: ${ERC20Contract.address}`);
+    console.log(`Factory: ${MercatusFactory.address}`);
     let res = await mi.myAddr();
     expect(res.valueOf()).to.equal(miAddr);
   });
