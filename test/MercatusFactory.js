@@ -1,50 +1,76 @@
 let MercatusFactory = artifacts.require("./MercatusFactory.sol");
 let MercatusInstance = artifacts.require("./MercatusInstance.sol");
-let ERC20Contract = artifacts.require("./ERC20Contract.sol");
+// let ERC20Contract = artifacts.require("./ERC20Contract.sol");
 let expect = require("chai").expect;
 let mf;
 let mi;
+let miTransaction;
+let miAddr;
 let meta;
 
 contract('Mercatus', function(accounts) {
 
-  it("should allow ERC20 token purchase", async function () {
-    let expected = 900;
-    meta = await ERC20Contract.deployed();
-    let status = await meta.purchase({from:accounts[1],value:90000});
-    let balance = await meta.balanceOf.call(accounts[1]);
-    expect(parseInt(balance.valueOf())).to.equal(expected);
-  });
+  // it("should allow ERC20 token purchase", async function () {
+  //   let expected = 900;
+  //   meta = await ERC20Contract.deployed();
+  //   let status = await meta.purchase({from:accounts[1],value:90000});
+  //   let balance = await meta.balanceOf.call(accounts[1]);
+  //   expect(parseInt(balance.valueOf())).to.equal(expected);
+  // });
+
+  // it("should deploy Mercatus Instance",async function() {
+  //   let expected=1;
+  //   mf = await MercatusFactory.deployed();
+  //   let miTransaction = await mf.makeInstance(ERC20Contract.address, accounts[0], 30, 20, 1337, 31337, 100 , 'morat', accounts[1], 'borat' , accounts[2],{from:accounts[1],gas:1000000});
+  //   let miAddr = (miTransaction.logs[0].args.instance);
+  //   mi = MercatusInstance.at(miAddr);
+  //   console.log(`ERC20: ${ERC20Contract.address}`);
+  //   console.log(`Factory: ${MercatusFactory.address}`);
+  //   let res = await mi.myAddr();
+  //   expect(res.valueOf()).to.equal(miAddr);
+  // });
 
   it("should deploy Mercatus Instance",async function() {
     let expected=1;
     mf = await MercatusFactory.deployed();
-    let miTransaction = await mf.makeInstance(ERC20Contract.address, accounts[0], 30, 20, 1337, 31337, 100 , 'morat', accounts[1], 'borat' , accounts[2],{from:accounts[1],gas:1000000});
-    let miAddr = (miTransaction.logs[0].args.instance);
+    miTransaction = await mf.makeInstance(accounts[0], 30, 20, 1337, 31337, 10 , 'morat', accounts[1], 'borat' , accounts[2],'0xcafebeef',{from:accounts[1],gas:1000000,value:10});
+    console.log(miTransaction);
+    miAddr = (miTransaction.logs[0].args.instance);
+    console.log(miTransaction.logs[0].args);
     mi = MercatusInstance.at(miAddr);
-    console.log(`ERC20: ${ERC20Contract.address}`);
+    // console.log(mi);
+    // console.log(`ERC20: ${ERC20Contract.address}`);
     console.log(`Factory: ${MercatusFactory.address}`);
     let res = await mi.myAddr();
     expect(res.valueOf()).to.equal(miAddr);
   });
 
-  it("should send 200 tokens to  Mercatus Instance",async function() {
-    let expected='200';
+  it("should send ether in Mercatus Instance",async function() {
+    let expected='10';
+    let balance = web3.eth.getBalance(miAddr);
     // meta = await ERC20Contract.deployed();
     // await meta.purchase({from:accounts[1],value:10000});
-    let status = await meta.transfer(mi.address, 200, {from:accounts[1],gas:90000});
-    let balance = await meta.balanceOf.call(mi.address);
+    // let status = await meta.transfer(mi.address, 200, {from:accounts[1],gas:90000});
+    // let balance = mi.balance;
     expect(balance.valueOf()).to.equal(expected);
   });
+  // it("should send 200 tokens to  Mercatus Instance",async function() {
+  //   let expected='200';
+  //   // meta = await ERC20Contract.deployed();
+  //   // await meta.purchase({from:accounts[1],value:10000});
+  //   let status = await meta.transfer(mi.address, 200, {from:accounts[1],gas:90000});
+  //   let balance = await meta.balanceOf.call(mi.address);
+  //   expect(balance.valueOf()).to.equal(expected);
+  // });
 
-  it("should set the instance paid", async function() {
-    let expected='1';
-    console.log(mi.address);
-    await mi.setPaid({from:accounts[0],gas:1000000});
-    let state = await mi.getState();
-    //state = await mi.getState.call();
-    expect(state.valueOf()).to.equal(expected);
-  });
+  // it("should set the instance paid", async function() {
+  //   let expected='1';
+  //   console.log(mi.address);
+  //   await mi.setPaid({from:accounts[0],gas:1000000});
+  //   let state = await mi.getState();
+  //   //state = await mi.getState.call();
+  //   expect(state.valueOf()).to.equal(expected);
+  // });
   // it("should call a function that depends on a linked library", function() {
   //   var meta;
   //   var metaCoinBalance;
