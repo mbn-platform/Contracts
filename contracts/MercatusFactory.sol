@@ -2,11 +2,11 @@ pragma solidity ^0.4.15;
 
 import './MercatusInstance.sol';
 contract MercatusFactory {
-    function makeInstance(address _be, uint _deadline, uint _maxLoss, uint _startBallance, uint _targetBallance, uint256 _amount,  string _invester, address _investerAddress, string _trader, address _traderAddress, uint256 offer)
+    function makeInstance(uint _duration, uint256 _maxLoss, uint256 _startBallance, uint256 _targetBallance, uint256 _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint256 offer)
     payable
     returns (address){
       require(msg.value >= _amount);
-        MercatusInstance mI =  (new MercatusInstance(_be, _deadline, _maxLoss, _startBallance, _targetBallance, _amount , _invester, _investerAddress, _trader, _traderAddress));
+        MercatusInstance mI =  (new MercatusInstance(_duration, _maxLoss, _startBallance, _targetBallance, _amount , _investor, _investorAddress, _trader, _traderAddress));
         address instanceAddr = mI.myAddr();
         spawnInstance(msg.sender,instanceAddr,offer);
         instanceAddr.transfer(msg.value);

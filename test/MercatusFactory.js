@@ -31,9 +31,10 @@ contract('Mercatus', function(accounts) {
   // });
 
   it("should deploy Mercatus Instance",async function() {
+    console.log(accounts);
     let expected=1;
     mf = await MercatusFactory.deployed();
-    miTransaction = await mf.makeInstance(accounts[0], 30, 20, 1337, 31337, 10 , 'morat', accounts[1], 'borat' , accounts[2],'0xcafebeef',{from:accounts[1],gas:1000000,value:10});
+    miTransaction = await mf.makeInstance(30, 20, 1337, 31337, 10 , 'morat', accounts[1], 'borat' , accounts[2],'0xcafebeef',{from:accounts[1],gas:4600000,value:10});
     console.log(miTransaction);
     miAddr = (miTransaction.logs[0].args.instance);
     console.log(miTransaction.logs[0].args);
@@ -42,6 +43,20 @@ contract('Mercatus', function(accounts) {
     // console.log(`ERC20: ${ERC20Contract.address}`);
     console.log(`Factory: ${MercatusFactory.address}`);
     let res = await mi.myAddr();
+    let instanceData={
+      state: (await mi.getState.call()).valueOf(),
+      start: (await mi.start.call()).valueOf(),
+      deadline: (await mi.deadline.call()).valueOf(),
+      maxLoss: (await mi.maxLoss.call()).valueOf(),
+      startBallance: (await mi.startBallance.call()).valueOf(),
+      targetBallance: (await mi.targetBallance.call()).valueOf(),
+      amount: (await mi.amount.call()).valueOf(),
+      investor: (await mi.investor.call()).valueOf(),
+      investorAddress: (await mi.investorAddress.call()).valueOf(),
+      trader: (await mi.trader.call()).valueOf(),
+      traderAddress: (await mi.traderAddress.call()).valueOf()
+    }
+    console.log(instanceData);
     expect(res.valueOf()).to.equal(miAddr);
   });
 
