@@ -34,7 +34,7 @@ contract('Mercatus', function(accounts) {
     console.log(accounts);
     let expected=1;
     mf = await MercatusFactory.deployed();
-    miTransaction = await mf.makeInstance(30, 20, 1337, 31337, 10 , 'morat', accounts[1], 'borat' , accounts[2],'0xcafebeef',{from:accounts[1],gas:4600000,value:10});
+    miTransaction = await mf.makeInstance(30, 20, 1337, 31337, 10 , 'morat', accounts[1], 'borat' , accounts[2],'0xcafebeef', 0 ,{from:accounts[1],gas:4600000,value:10});
     console.log(miTransaction);
     miAddr = (miTransaction.logs[0].args.instance);
     console.log(miTransaction.logs[0].args);
@@ -51,6 +51,7 @@ contract('Mercatus', function(accounts) {
       startBallance: (await mi.startBallance.call()).valueOf(),
       targetBallance: (await mi.targetBallance.call()).valueOf(),
       amount: (await mi.amount.call()).valueOf(),
+      currency: (await mi.currency.call()).valueOf(),
       investor: (await mi.investor.call()).valueOf(),
       investorAddress: (await mi.investorAddress.call()).valueOf(),
       trader: (await mi.trader.call()).valueOf(),
