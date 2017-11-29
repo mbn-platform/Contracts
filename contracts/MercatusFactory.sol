@@ -8,9 +8,9 @@ contract MercatusFactory {
       require(msg.value >= _amount);
         MercatusInstance mI =  (new MercatusInstance(_duration, _maxLoss, _startBallance, _targetBallance, _amount , _investor, _investorAddress, _trader, _traderAddress, _currency));
         address instanceAddr = mI.myAddr();
-        spawnInstance(msg.sender,instanceAddr,offer);
+        spawnInstance(msg.sender,instanceAddr, mI.getStart(), offer);
         instanceAddr.transfer(msg.value);
         return instanceAddr;
     }
-    event spawnInstance(address indexed from, address indexed instance, uint256 offer);
+    event spawnInstance(address indexed from, address indexed instance, uint256 start, uint256 offer);
 }

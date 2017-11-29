@@ -45,6 +45,9 @@ contract MercatusInstance {
   function getState() public constant returns (uint)  {
     return uint(currentState);
   }
+  function getStart() public constant returns (uint256)  {
+    return start;
+  }
     function setVerified() external  onlyBe inState(state.paid) {
         currentState = state.verified;
    }
