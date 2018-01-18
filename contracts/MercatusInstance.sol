@@ -3,7 +3,7 @@ pragma solidity ^0.4.15;
 contract MercatusInstance {
     address public be = 0x10367bD202112F862d715D093C0B78E26BEcdc9C;
     enum state { paid, verified, halted, finished}
-    enum currencyType { USDT, BTC}
+    enum currencyType { USDT, BTC, ETH}
     state public currentState;
     uint256 public start;
     uint256 public deadline;
