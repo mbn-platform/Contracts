@@ -34,7 +34,9 @@ contract('Mercatus', function(accounts) {
     console.log(accounts);
     let expected=1;
     mf = await MercatusFactory.deployed();
-    miTransaction = await mf.makeInstance(30, 20, 1337, 31337, 10 , 'morat', accounts[1], 'borat' , accounts[2],'0xcafebeef', 0 ,{from:accounts[1],gas:4600000,value:10});
+    miTransaction = await mf.makeInstance(30, 20, 1337, 31337, 1000000000000000000 , 'morat', accounts[0], 'borat' , accounts[0],'0xcafebeef', 0 ,{from:accounts[0],gas:4600000,value:1000000000000000000});
+    //"31", "50", "1", "2", "1", "Invvv", "0xBFa3ea134157fD7b4324c91428B6D7e1e3c29cCE", "trader333333" , "0xBFa3ea134157fD7b4324c91428B6D7e1e3c29cCE", "31337" , "BTC"
+
     console.log(miTransaction);
     miAddr = (miTransaction.logs[0].args.instance);
     console.log(miTransaction.logs[0].args);
@@ -62,7 +64,7 @@ contract('Mercatus', function(accounts) {
   });
 
   it("should send ether in Mercatus Instance",async function() {
-    let expected='10';
+    let expected='1';
     let balance = web3.eth.getBalance(miAddr);
     // meta = await ERC20Contract.deployed();
     // await meta.purchase({from:accounts[1],value:10000});

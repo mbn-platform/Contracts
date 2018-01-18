@@ -16,7 +16,7 @@ contract MercatusInstance {
     address public investorAddress;
     string public trader;
     address public traderAddress;
-    function MercatusInstance(uint duration, uint _maxLoss, uint _startBallance, uint _targetBallance, uint256 _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint _currency){
+    function MercatusInstance(uint duration, uint _maxLoss, uint _startBallance, uint _targetBallance, uint256 _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint _currency) payable{
         require( _currency >= 0 &&  _currency < 2  );
         start = now;
         deadline = start + duration * 86400;

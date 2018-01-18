@@ -1,28 +1,28 @@
-let beKey = '0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8701'
-var bip39 = require("bip39");
-var hdkey = require('ethereumjs-wallet/hdkey');
-var ProviderEngine = require("web3-provider-engine");
+let beKey = '348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8701';
+// var bip39 = require('bip39');
+var eWallet = require('ethereumjs-wallet');
+var ProviderEngine = require('web3-provider-engine');
 var WalletSubprovider = require('web3-provider-engine/subproviders/wallet.js');
-var Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
-var Web3 = require("web3");
+var Web3Subprovider = require('web3-provider-engine/subproviders/web3.js');
+var Web3 = require('web3');
 const FilterSubprovider = require('web3-provider-engine/subproviders/filters.js');
 
 // Get our mnemonic and create an hdwallet
-var mnemonic = "couch solve unique spirit wine fine occur rhythm foot feature glory away";
-var hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
-// var hdwallet = hdkey.fromExtendedKey(beKey)
+//var mnemonic = 'couch solve unique spirit wine fine occur rhythm foot feature glory away';
+//var hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
+var w = eWallet.fromPrivateKey(new Buffer(beKey,'hex'));
 
 // Get the first account using the standard hd path.
-var wallet_hdpath = "m/44'/60'/0'/0/";
-var wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet();
-var address = "0x" + wallet.getAddress().toString("hex");
+// var wallet_hdpath = 'm/44\'/60\'/0\'/0/';
+// var wallet = w.hdwallet.derivePath(wallet_hdpath + '0').getWallet();
+var address = '0x' + w.getAddress().toString('hex');
 
-var providerUrl = "https://ropsten.infura.io/fU11ZK0hpGri8YVjyy8w";
+var providerUrl = 'https://ropsten.infura.io/fU11ZK0hpGri8YVjyy8w';
 var engine = new ProviderEngine();
 // filters
 engine.addProvider(new FilterSubprovider());
 
-engine.addProvider(new WalletSubprovider(wallet, {}));
+engine.addProvider(new WalletSubprovider(w, {}));
 engine.addProvider(new Web3Subprovider(new Web3.providers.HttpProvider(providerUrl)));
 engine.start(); // Required by the provider engine.
 module.exports = {
