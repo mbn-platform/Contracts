@@ -8,21 +8,21 @@ contract MercatusInstance {
     uint256 public start;
     uint256 public deadline;
     uint256 public maxLoss;
-    uint256 public startBallance;
-    uint256 public targetBallance;
+    uint256 public startBalance;
+    uint256 public targetBalance;
     uint256 public amount;
     currencyType public currency;
     string public investor;
     address public investorAddress;
     string public trader;
     address public traderAddress;
-    function MercatusInstance(uint duration, uint _maxLoss, uint _startBallance, uint _targetBallance, uint256 _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint _currency) payable{
+    function MercatusInstance(uint duration, uint _maxLoss, uint _startBalance, uint _targetBalance, uint256 _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint _currency) payable{
         require( _currency >= 0 &&  _currency < 2  );
         start = now;
         deadline = start + duration * 86400;
         maxLoss = _maxLoss;
-        startBallance = _startBallance;
-        targetBallance = _targetBallance;
+        startBalance = _startBalance;
+        targetBalance = _targetBalance;
         amount = _amount;
         currency = currencyType(_currency);
         investor = _investor;
@@ -61,13 +61,13 @@ contract MercatusInstance {
    }
     function setFinished(uint finishAmount) external  onlyBe inState(state.verified) {
         require(now < deadline);
-        if(finishAmount<=startBallance){
+        if(finishAmount<=startBalance){
           investorAddress.transfer(this.balance);
-        }else if(finishAmount>targetBallance){
+        }else if(finishAmount>targetBalance){
           traderAddress.transfer(this.balance);
         }
         else{
-          traderAddress.transfer(((finishAmount-startBallance)/(targetBallance-startBallance))*this.balance);
+          traderAddress.transfer(((finishAmount-startBalance)/(targetBalance-startBalance))*this.balance);
           investorAddress.transfer(this.balance);
         }
         currentState = state.finished;
