@@ -5,18 +5,18 @@ contract MercatusInstance {
     enum state { paid, verified, halted, finished}
     enum currencyType { USDT, BTC, ETH}
     state public currentState;
-    uint256 public start;
-    uint256 public deadline;
-    uint256 public maxLoss;
-    uint256 public startBalance;
-    uint256 public targetBalance;
-    uint256 public amount;
+    uint public start;
+    uint public deadline;
+    uint public maxLoss;
+    uint public startBalance;
+    uint public targetBalance;
+    uint public amount;
     currencyType public currency;
     string public investor;
     address public investorAddress;
     string public trader;
     address public traderAddress;
-    function MercatusInstance(uint duration, uint _maxLoss, uint _startBalance, uint _targetBalance, uint256 _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint _currency) payable{
+    function MercatusInstance(uint duration, uint _maxLoss, uint _startBalance, uint _targetBalance, uint _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint _currency) public payable{
         require( _currency >= 0 &&  _currency < 2  );
         start = now;
         deadline = start + duration * 86400;
@@ -45,22 +45,21 @@ contract MercatusInstance {
   function getState() public constant returns (uint)  {
     return uint(currentState);
   }
-  function getStart() public constant returns (uint256)  {
+  function getStart() public constant returns (uint)  {
     return start;
   }
-    function setVerified() external  onlyBe inState(state.paid) {
+    function setVerified() public  onlyBe inState(state.paid) {
         currentState = state.verified;
    }
 
-    function setHalted() external  onlyBe returns(state) {
+    function setHalted() public  onlyBe returns(state) {
 
         require(currentState == state.paid || currentState == state.verified);
         traderAddress.transfer(this.balance);
         currentState = state.halted;
       return currentState;
    }
-    function setFinished(uint finishAmount) external  onlyBe inState(state.verified) {
-        require(now < deadline);
+    function setFinished(uint finishAmount) public  onlyBe inState(state.verified) {
         if(finishAmount<=startBalance){
           investorAddress.transfer(this.balance);
         }else if(finishAmount>targetBalance){
