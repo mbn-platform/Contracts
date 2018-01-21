@@ -52,12 +52,11 @@ contract MercatusInstance {
         currentState = state.verified;
    }
 
-    function setHalted() public  onlyBe returns(state) {
+    function setHalted() public  onlyBe {
 
         require(currentState == state.paid || currentState == state.verified);
         traderAddress.transfer(this.balance);
         currentState = state.halted;
-      return currentState;
    }
     function setFinished(uint finishAmount) public  onlyBe inState(state.verified) {
         if(finishAmount<=startBalance){
