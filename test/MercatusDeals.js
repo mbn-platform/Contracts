@@ -1,11 +1,11 @@
-let MercatusFactory = artifacts.require("./MercatusFactory.sol");
-let MercatusInstance = artifacts.require("./MercatusInstance.sol");
+let MercatusDeals = artifacts.require('./MercatusDeals.sol');
+// let MercatusInstance = artifacts.require("./MercatusInstance.sol");
 // let ERC20Contract = artifacts.require("./ERC20Contract.sol");
-let expect = require("chai").expect;
-let mf;
-let mi;
-let miTransaction;
-let miAddr;
+let expect = require('chai').expect;
+let md;
+// let mi;
+let mdTransaction;
+let dealId;
 let meta;
 
 contract('Mercatus', function(accounts) {
@@ -30,37 +30,40 @@ contract('Mercatus', function(accounts) {
   //   expect(res.valueOf()).to.equal(miAddr);
   // });
 
-  it("should deploy Mercatus Instance",async function() {
+  it('should create Mercatus Deal',async () => {
     console.log(accounts);
-    let expected=1;
-    mf = await MercatusFactory.deployed();
-    miTransaction = await mf.makeInstance(30, 20, 1337, 31337, 1000000000000000000 , 'morat', accounts[0], 'borat' , '0x66A28d98D1C586aab0205D4d41E508eC9002849E','0xcafebeef', 0 ,{from:accounts[0],gas:4600000,value:1000000000000000000});
+    md = await MercatusDeals.deployed();
+
+    const dealCount1 = parseInt((await md.getDealsCount.call()).valueOf());
+    mdTransaction = await md.makeDeal(30, 20, 1337, 31337, 100000000000000000 , 'morat', accounts[0], 'borat' , '0x66A28d98D1C586aab0205D4d41E508eC9002849E','0xcafebeef', 0 ,{from:accounts[0],gas:960000,value:100000000000000000});
     //"31", "50", "1", "2", "1", "Invvv", "0xBFa3ea134157fD7b4324c91428B6D7e1e3c29cCE", "trader333333" , "0xBFa3ea134157fD7b4324c91428B6D7e1e3c29cCE", "31337" , "BTC"
 
-    console.log(miTransaction);
-    miAddr = (miTransaction.logs[0].args.instance);
-    console.log(miTransaction.logs[0].args);
-    mi = MercatusInstance.at(miAddr);
+    console.log(mdTransaction);
+    dealId = (mdTransaction.logs[0].args.dealId);
+    console.log(mdTransaction.logs[0].args);
+    // mi = MercatusInstance.at(miAddr);
     // console.log(mi);
     // console.log(`ERC20: ${ERC20Contract.address}`);
-    console.log(`Factory: ${MercatusFactory.address}`);
-    let res = await mi.myAddr();
-    let instanceData={
-      state: (await mi.getState.call()).valueOf(),
-      start: (await mi.start.call()).valueOf(),
-      deadline: (await mi.deadline.call()).valueOf(),
-      maxLoss: (await mi.maxLoss.call()).valueOf(),
-      startBalance: (await mi.startBalance.call()).valueOf(),
-      targetBalance: (await mi.targetBalance.call()).valueOf(),
-      amount: (await mi.amount.call()).valueOf(),
-      currency: (await mi.currency.call()).valueOf(),
-      investor: (await mi.investor.call()).valueOf(),
-      investorAddress: (await mi.investorAddress.call()).valueOf(),
-      trader: (await mi.trader.call()).valueOf(),
-      traderAddress: (await mi.traderAddress.call()).valueOf()
-    }
-    console.log(instanceData);
-    expect(res.valueOf()).to.equal(miAddr);
+    console.log(`Deal: ${dealId}`);
+    // let res = await mi.myAddr();
+    // let deal = await md.deals().call(dealId).valueOf();
+    // let instanceData = {
+    //   state: (await md.getState.call(dealId)).valueOf(),
+    //   start: (deal.start.call()).valueOf(),
+    //   deadline: (deal.deadline.call()).valueOf(),
+    //   maxLoss: (deal.maxLoss.call()).valueOf(),
+    //   startBalance: (deal.startBalance.call()).valueOf(),
+    //   targetBalance: (deal.targetBalance.call()).valueOf(),
+    //   amount: (deal.amount.call()).valueOf(),
+    //   currency: (deal.currency.call()).valueOf(),
+    //   investor: (deal.investor.call()).valueOf(),
+    //   investorAddress: (deal.investorAddress.call()).valueOf(),
+    //   trader: (deal.trader.call()).valueOf(),
+    //   traderAddress: (deal.traderAddress.call()).valueOf()
+    // }
+    // console.log(instanceData);
+    const dealCount2 = parseInt((await md.getDealsCount.call()).valueOf());
+    expect(dealCount1).to.equal(dealCount2 - 1);
   });
 
   // it("should send ether in Mercatus Instance",async function() {
@@ -73,25 +76,25 @@ contract('Mercatus', function(accounts) {
   //   let balance = web3.eth.getBalance(miAddr);
   //   expect(balance.valueOf()).to.equal(expected);
   // });
-  it("should verify Mercatus Instance",async function() {
+  it('should verify Mercatus Deal', async function() {
     // let expected='1';
     // let balance = web3.eth.getBalance(miAddr);
     // meta = await ERC20Contract.deployed();
     // await meta.purchase({from:accounts[1],value:10000});
     // let status = await meta.transfer(mi.address, 200, {from:accounts[1],gas:90000});
     // let balance = mi.balance;
-    await mi.setVerified({from:accounts[0]});
-    expect((await mi.getState()).valueOf()).to.equal('1');
+    await md.setVerified(dealId, {from:accounts[0]});
+    expect((await md.getState(dealId)).valueOf()).to.equal('1');
   });
-  it("should finish Mercatus Instance with maxLoss reached",async function() {
+  it('should finish Mercatus Instance with maxLoss reached',async function() {
     // let expected='1';
     // let balance = web3.eth.getBalance(miAddr);
     // meta = await ERC20Contract.deployed();
     // await meta.purchase({from:accounts[1],value:10000});
     // let status = await meta.transfer(mi.address, 200, {from:accounts[1],gas:90000});
     // let balance = mi.balance;
-    await mi.setFinished(255000,{from:accounts[0]});
-    expect((await mi.getState()).valueOf()).to.equal('3');
+    await md.setFinished(dealId, 255000,{from:accounts[0]});
+    expect((await md.getState(dealId)).valueOf()).to.equal('3');
   });
   // it("should send 200 tokens to  Mercatus Instance",async function() {
   //   let expected='200';

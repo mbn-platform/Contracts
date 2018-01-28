@@ -1,0 +1,596 @@
+{
+  "contractName": "MercatusTrades",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hash",
+          "type": "uint256"
+        }
+      ],
+      "name": "addTradesBlock",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "hash",
+          "type": "uint256"
+        }
+      ],
+      "name": "TradesBlock",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x60606040527310367bd202112f862d715d093c0b78e26becdc9c6000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550341561006357600080fd5b6101a4806100726000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c112f5f514610046575b600080fd5b341561005157600080fd5b6100676004808035906020019091905050610069565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156100c457600080fd5b600180548060010182816100d89190610127565b9160005260206000209001600083909190915055507f2cf1ee4f60d445ddd85f608c681230dcef1046eab3fdda269fa646469c42d0ce816040518082815260200191505060405180910390a150565b81548183558181151161014e5781836000526020600020918201910161014d9190610153565b5b505050565b61017591905b80821115610171576000816000905550600101610159565b5090565b905600a165627a7a72305820ac1d87edae8e2cdd2e5d5594c0361af89f7485f2e9761eab907922b64a070f1e0029",
+  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c112f5f514610046575b600080fd5b341561005157600080fd5b6100676004808035906020019091905050610069565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156100c457600080fd5b600180548060010182816100d89190610127565b9160005260206000209001600083909190915055507f2cf1ee4f60d445ddd85f608c681230dcef1046eab3fdda269fa646469c42d0ce816040518082815260200191505060405180910390a150565b81548183558181151161014e5781836000526020600020918201910161014d9190610153565b5b505050565b61017591905b80821115610171576000816000905550600101610159565b5090565b905600a165627a7a72305820ac1d87edae8e2cdd2e5d5594c0361af89f7485f2e9761eab907922b64a070f1e0029",
+  "sourceMap": "25:345:3:-;;;68:42;55:55;;;;;;;;;;;;;;;;;;;;25:345;;;;;;;;;;;;;;",
+  "deployedSourceMap": "25:345:3:-;;;;;;;;;;;;;;;;;;;;;;;;211:109;;;;;;;;;;;;;;;;;;;;;;;;;;;185:2;;;;;;;;;;;171:16;;:10;:16;;;163:25;;;;;;;;269:6;:17;;;;;;;;;;;:::i;:::-;;;;;;;;;;281:4;269:17;;;;;;;296;308:4;296:17;;;;;;;;;;;;;;;;;;211:109;:::o;25:345::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.15;\ncontract MercatusTrades {\n    address be = 0x10367bD202112F862d715D093C0B78E26BEcdc9C;\n    uint[] trades;\n    modifier onlyBe() {\n        require(msg.sender == be);\n        _;\n    }\n    function addTradesBlock(uint hash) onlyBe public{\n        trades.push(hash);\n        TradesBlock(hash);\n    }\n    event TradesBlock(\n        uint hash\n    );\n}\n",
+  "sourcePath": "/root/repos/Contracts/contracts/MercatusTrades.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/root/repos/Contracts/contracts/MercatusTrades.sol",
+      "exportedSymbols": {
+        "MercatusTrades": [
+          1169
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".15"
+          ]
+        },
+        "id": 1129,
+        "name": "PragmaDirective",
+        "src": "0:24:3"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            1169
+          ],
+          "name": "MercatusTrades",
+          "scope": 1170
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": false,
+              "name": "be",
+              "scope": 1169,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "type": "address"
+                },
+                "id": 1130,
+                "name": "ElementaryTypeName",
+                "src": "55:7:3"
+              },
+              {
+                "attributes": {
+                  "argumentTypes": null,
+                  "hexvalue": "307831303336376244323032313132463836326437313544303933433042373845323642456364633943",
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "lValueRequested": false,
+                  "subdenomination": null,
+                  "token": "number",
+                  "type": "address",
+                  "value": "0x10367bD202112F862d715D093C0B78E26BEcdc9C"
+                },
+                "id": 1131,
+                "name": "Literal",
+                "src": "68:42:3"
+              }
+            ],
+            "id": 1132,
+            "name": "VariableDeclaration",
+            "src": "55:55:3"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "trades",
+              "scope": 1169,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "uint256[] storage ref",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "length": null,
+                  "type": "uint256[] storage pointer"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint",
+                      "type": "uint256"
+                    },
+                    "id": 1133,
+                    "name": "ElementaryTypeName",
+                    "src": "116:4:3"
+                  }
+                ],
+                "id": 1134,
+                "name": "ArrayTypeName",
+                "src": "116:6:3"
+              }
+            ],
+            "id": 1135,
+            "name": "VariableDeclaration",
+            "src": "116:13:3"
+          },
+          {
+            "attributes": {
+              "name": "onlyBe",
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1136,
+                "name": "ParameterList",
+                "src": "150:2:3"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1380,
+                              "type": "function (bool) pure",
+                              "value": "require"
+                            },
+                            "id": 1137,
+                            "name": "Identifier",
+                            "src": "163:7:3"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "==",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 1377,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 1138,
+                                    "name": "Identifier",
+                                    "src": "171:3:3"
+                                  }
+                                ],
+                                "id": 1139,
+                                "name": "MemberAccess",
+                                "src": "171:10:3"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1132,
+                                  "type": "address",
+                                  "value": "be"
+                                },
+                                "id": 1140,
+                                "name": "Identifier",
+                                "src": "185:2:3"
+                              }
+                            ],
+                            "id": 1141,
+                            "name": "BinaryOperation",
+                            "src": "171:16:3"
+                          }
+                        ],
+                        "id": 1142,
+                        "name": "FunctionCall",
+                        "src": "163:25:3"
+                      }
+                    ],
+                    "id": 1143,
+                    "name": "ExpressionStatement",
+                    "src": "163:25:3"
+                  },
+                  {
+                    "id": 1144,
+                    "name": "PlaceholderStatement",
+                    "src": "198:1:3"
+                  }
+                ],
+                "id": 1145,
+                "name": "Block",
+                "src": "153:53:3"
+              }
+            ],
+            "id": 1146,
+            "name": "ModifierDefinition",
+            "src": "135:71:3"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "name": "addTradesBlock",
+              "payable": false,
+              "scope": 1169,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "hash",
+                      "scope": 1164,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1147,
+                        "name": "ElementaryTypeName",
+                        "src": "235:4:3"
+                      }
+                    ],
+                    "id": 1148,
+                    "name": "VariableDeclaration",
+                    "src": "235:9:3"
+                  }
+                ],
+                "id": 1149,
+                "name": "ParameterList",
+                "src": "234:11:3"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1152,
+                "name": "ParameterList",
+                "src": "259:0:3"
+              },
+              {
+                "attributes": {
+                  "arguments": [
+                    null
+                  ]
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "argumentTypes": null,
+                      "overloadedDeclarations": [
+                        null
+                      ],
+                      "referencedDeclaration": 1146,
+                      "type": "modifier ()",
+                      "value": "onlyBe"
+                    },
+                    "id": 1150,
+                    "name": "Identifier",
+                    "src": "246:6:3"
+                  }
+                ],
+                "id": 1151,
+                "name": "ModifierInvocation",
+                "src": "246:6:3"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (uint256) returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1135,
+                                  "type": "uint256[] storage ref",
+                                  "value": "trades"
+                                },
+                                "id": 1153,
+                                "name": "Identifier",
+                                "src": "269:6:3"
+                              }
+                            ],
+                            "id": 1155,
+                            "name": "MemberAccess",
+                            "src": "269:11:3"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1148,
+                              "type": "uint256",
+                              "value": "hash"
+                            },
+                            "id": 1156,
+                            "name": "Identifier",
+                            "src": "281:4:3"
+                          }
+                        ],
+                        "id": 1157,
+                        "name": "FunctionCall",
+                        "src": "269:17:3"
+                      }
+                    ],
+                    "id": 1158,
+                    "name": "ExpressionStatement",
+                    "src": "269:17:3"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1168,
+                              "type": "function (uint256)",
+                              "value": "TradesBlock"
+                            },
+                            "id": 1159,
+                            "name": "Identifier",
+                            "src": "296:11:3"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1148,
+                              "type": "uint256",
+                              "value": "hash"
+                            },
+                            "id": 1160,
+                            "name": "Identifier",
+                            "src": "308:4:3"
+                          }
+                        ],
+                        "id": 1161,
+                        "name": "FunctionCall",
+                        "src": "296:17:3"
+                      }
+                    ],
+                    "id": 1162,
+                    "name": "ExpressionStatement",
+                    "src": "296:17:3"
+                  }
+                ],
+                "id": 1163,
+                "name": "Block",
+                "src": "259:61:3"
+              }
+            ],
+            "id": 1164,
+            "name": "FunctionDefinition",
+            "src": "211:109:3"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "name": "TradesBlock"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "hash",
+                      "scope": 1168,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1165,
+                        "name": "ElementaryTypeName",
+                        "src": "352:4:3"
+                      }
+                    ],
+                    "id": 1166,
+                    "name": "VariableDeclaration",
+                    "src": "352:9:3"
+                  }
+                ],
+                "id": 1167,
+                "name": "ParameterList",
+                "src": "342:25:3"
+              }
+            ],
+            "id": 1168,
+            "name": "EventDefinition",
+            "src": "325:43:3"
+          }
+        ],
+        "id": 1169,
+        "name": "ContractDefinition",
+        "src": "25:345:3"
+      }
+    ],
+    "id": 1170,
+    "name": "SourceUnit",
+    "src": "0:371:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-01-28T23:20:28.298Z"
+}

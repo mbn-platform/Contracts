@@ -45,7 +45,7 @@ module.exports = {
       network_id: 3,    // Official ropsten network id
       provider: engine, // Use our custom provider
       from: address,     // Use the address we derived
-      gas: 4600000
+      gas: 2000000
     }
   }
 };
