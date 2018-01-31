@@ -7,7 +7,8 @@ let md;
 let mdTransaction;
 let dealId;
 let meta;
-
+const investorAddr = '0x9315709cc7C8027f5309776C0B38db4a7F2F2AF3';
+const traderAddr = '0x66A28d98D1C586aab0205D4d41E508eC9002849E';
 contract('Mercatus', function(accounts) {
 
   // it("should allow ERC20 token purchase", async function () {
@@ -35,7 +36,7 @@ contract('Mercatus', function(accounts) {
     md = await MercatusDeals.deployed();
 
     const dealCount1 = parseInt((await md.getDealsCount.call()).valueOf());
-    mdTransaction = await md.makeDeal(30, 20, 1337, 31337, 100000000000000000 , 'morat', accounts[0], 'borat' , '0x66A28d98D1C586aab0205D4d41E508eC9002849E','0xcafebeef', 0 ,{from:accounts[0],gas:960000,value:100000000000000000});
+    mdTransaction = await md.makeDeal(30, 20, 1000, 3000, 100000000000000000 , 'morat', investorAddr, 'borat', traderAddr, '0xcafebeef', 0 ,{from:accounts[0],gas:960000,value:100000000000000000});
     //"31", "50", "1", "2", "1", "Invvv", "0xBFa3ea134157fD7b4324c91428B6D7e1e3c29cCE", "trader333333" , "0xBFa3ea134157fD7b4324c91428B6D7e1e3c29cCE", "31337" , "BTC"
 
     console.log(mdTransaction);
@@ -86,16 +87,26 @@ contract('Mercatus', function(accounts) {
     await md.setVerified(dealId, {from:accounts[0]});
     expect((await md.getState(dealId)).valueOf()).to.equal('1');
   });
-  it('should finish Mercatus Instance with maxLoss reached',async function() {
+  it('should finish Mercatus Instance',async function() {
     // let expected='1';
     // let balance = web3.eth.getBalance(miAddr);
     // meta = await ERC20Contract.deployed();
     // await meta.purchase({from:accounts[1],value:10000});
     // let status = await meta.transfer(mi.address, 200, {from:accounts[1],gas:90000});
     // let balance = mi.balance;
-    await md.setFinished(dealId, 255000,{from:accounts[0]});
+    await md.setFinished(dealId, 2345, {from:accounts[0]});
     expect((await md.getState(dealId)).valueOf()).to.equal('3');
   });
+  // it('should send investor\'s split',async function() {
+  //   // let expected='1';
+  //   // let balance = web3.eth.getBalance(miAddr);
+  //   // meta = await ERC20Contract.deployed();
+  //   // await meta.purchase({from:accounts[1],value:10000});
+  //   // let status = await meta.transfer(mi.address, 200, {from:accounts[1],gas:90000});
+  //   let balance = md.balance;
+  //   await md.setFinished(dealId, 25500,{from:accounts[0]});
+  //   expect((await md.getState(dealId)).valueOf()).to.equal('3');
+  // });
   // it("should send 200 tokens to  Mercatus Instance",async function() {
   //   let expected='200';
   //   // meta = await ERC20Contract.deployed();

@@ -44,6 +44,9 @@ contract MercatusDeals {
      deals[dealId].traderAddress.transfer(deals[dealId].amount);
      deals[dealId].currentState = state.halted;
 }
+function getSplit(uint finishAmount, uint startBalance, uint targetBalance, uint amount) public pure returns (uint) {
+    return ((finishAmount - startBalance) * amount) / ((targetBalance - startBalance) );
+}
  function setFinished(uint dealId, uint finishAmount) public  onlyBe inState(dealId, state.verified) {
      if(finishAmount <= deals[dealId].startBalance){
        deals[dealId].investorAddress.transfer(deals[dealId].amount);
@@ -51,9 +54,9 @@ contract MercatusDeals {
        deals[dealId].traderAddress.transfer(deals[dealId].amount);
      }
      else{
-       deals[dealId].traderAddress.transfer(((finishAmount-deals[dealId].startBalance)/(deals[dealId].targetBalance-deals[dealId].startBalance))*deals[dealId].amount);
-       deals[dealId].amount = deals[dealId].amount - ((finishAmount-deals[dealId].startBalance)/(deals[dealId].targetBalance-deals[dealId].startBalance))*deals[dealId].amount;
-       deals[dealId].investorAddress.transfer(deals[dealId].amount);
+        uint split = getSplit(finishAmount, deals[dealId].startBalance, deals[dealId].targetBalance, deals[dealId].amount);
+        deals[dealId].traderAddress.transfer(split);
+        deals[dealId].investorAddress.transfer(deals[dealId].amount - split);
      }
      deals[dealId].currentState = state.finished;
 }

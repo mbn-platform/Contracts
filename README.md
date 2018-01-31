@@ -1,3 +1,3 @@
 **Env**
 
-*MeractusDeals*: 0xf4d7173a51a6dbe51c6519bed9a3870abed55567 (Ropsen)
+*MeractusDeals*: 0x478f9bb458a095f45dafa69067336dc06de3dc36 (Ropsen)
