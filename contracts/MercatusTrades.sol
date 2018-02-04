@@ -1,6 +1,6 @@
 pragma solidity ^0.4.15;
 contract MercatusTrades {
-    address be = 0x10367bD202112F862d715D093C0B78E26BEcdc9C;
+    address be = 0x873A2832898b17b5C12355769A7E2DAe6c2f92f7;
     uint[] trades;
     modifier onlyBe() {
         require(msg.sender == be);
