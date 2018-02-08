@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "local-test": "rm -rf build/* && truffle compile &&  truffle migrate --network localhost --reset && truffle test --network localhost",
-    "ropsten-test": "rm -rf build/* && truffle compile &&  truffle migrate --network ropsten --reset && truffle test --network ropsten"
+    "ropsten-test": "rm -rf build/* && truffle compile &&  truffle migrate --network ropsten --reset && truffle test --network ropsten",
+    "mainnet-test": "rm -rf build/* && truffle compile &&  truffle migrate --network mainnet  --reset && truffle test --network mainnet"
   },
   "author": "",
   "license": "ISC",
