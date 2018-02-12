@@ -67,7 +67,7 @@ function () public payable {
 }
     function makeDeal(uint _duration, uint _maxLoss, uint _startBalance, uint _targetBalance, uint _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint offer, uint _currency)
     payable public {
-      require( _currency >= 0 &&  _currency < 2  );
+      require( _currency >= 0 &&  _currency < 3  );
       require(msg.value == _amount);
         deals.push(Deal({
             currentState: state.paid,
