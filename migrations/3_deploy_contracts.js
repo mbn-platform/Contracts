@@ -1,9 +1,9 @@
-// let MercatusInstance = artifacts.require("./MercatusInstance.sol");
-let MercatusDeals = artifacts.require("./MercatusDeals.sol");
+// let MembranaInstance = artifacts.require("./MembranaInstance.sol");
+let MembranaDeals = artifacts.require("./MembranaDeals.sol");
 
 module.exports = function(deployer) {
-  // deployer.deploy(MercatusInstance);
-  // deployer.deploy(MercatusFactory);
-  // deployer.link(MercatusInstance, MercatusFactory);
-  deployer.deploy(MercatusDeals);
+  // deployer.deploy(MembranaInstance);
+  // deployer.deploy(MembranaFactory);
+  // deployer.link(MembranaInstance, MembranaFactory);
+  deployer.deploy(MembranaDeals);
 };

@@ -1,5 +1,5 @@
-pragma solidity ^0.4.15;
-contract MercatusTrades {
+pragma solidity ^0.4.17;
+contract MembranaTrades {
     address be = 0x873A2832898b17b5C12355769A7E2DAe6c2f92f7;
     uint[] trades;
     modifier onlyBe() {

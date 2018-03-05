@@ -1,7 +1,6 @@
 pragma solidity ^0.4.15;
 
-contract MercatusDeals {
-  uint dealsCount;
+contract MembranaDeals {
   address public be = 0x873A2832898b17b5C12355769A7E2DAe6c2f92f7;
   enum state { paid, verified, halted, finished}
   enum currencyType { USDT, BTC, ETH}
@@ -20,7 +19,9 @@ contract MercatusDeals {
     address  traderAddress;
   }
   Deal[] public deals;
-  function MercatusDeals() payable{}
+  function MercatusDeals() public payable{
+    revert();
+  }
   modifier onlyBe() {
    require(msg.sender == be);
    _;
@@ -41,6 +42,8 @@ contract MercatusDeals {
 
  function setHalted(uint dealId) public  onlyBe {
      require(deals[dealId].currentState == state.paid || deals[dealId].currentState == state.verified);
+     require(deals[dealId].amount != 0);
+     deals[dealId].amount = 0;
      deals[dealId].traderAddress.transfer(deals[dealId].amount);
      deals[dealId].currentState = state.halted;
 }
@@ -48,6 +51,8 @@ function getSplit(uint finishAmount, uint startBalance, uint targetBalance, uint
     return ((finishAmount - startBalance) * amount) / ((targetBalance - startBalance) );
 }
  function setFinished(uint dealId, uint finishAmount) public  onlyBe inState(dealId, state.verified) {
+     require(deals[dealId].amount != 0);
+     deals[dealId].amount = 0;
      if(finishAmount <= deals[dealId].startBalance){
        deals[dealId].investorAddress.transfer(deals[dealId].amount);
      }else if(finishAmount>deals[dealId].targetBalance){
@@ -63,7 +68,8 @@ function getSplit(uint finishAmount, uint startBalance, uint targetBalance, uint
     function getDealsCount() public constant returns (uint){
         return deals.length;
     }
-function () public payable {
+function () external payable  {
+  revert();
 }
     function makeDeal(uint _duration, uint _maxLoss, uint _startBalance, uint _targetBalance, uint _amount,  string _investor, address _investorAddress, string _trader, address _traderAddress, uint offer, uint _currency)
     payable public {
