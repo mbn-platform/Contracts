@@ -43,8 +43,8 @@ contract MembranaDeals {
  function setHalted(uint dealId) public  onlyBe {
      require(deals[dealId].currentState == state.paid || deals[dealId].currentState == state.verified);
      require(deals[dealId].amount != 0);
-     deals[dealId].amount = 0;
      deals[dealId].traderAddress.transfer(deals[dealId].amount);
+     deals[dealId].amount = 0;
      deals[dealId].currentState = state.halted;
 }
 function getSplit(uint finishAmount, uint startBalance, uint targetBalance, uint amount) public pure returns (uint) {
@@ -52,7 +52,6 @@ function getSplit(uint finishAmount, uint startBalance, uint targetBalance, uint
 }
  function setFinished(uint dealId, uint finishAmount) public  onlyBe inState(dealId, state.verified) {
      require(deals[dealId].amount != 0);
-     deals[dealId].amount = 0;
      if(finishAmount <= deals[dealId].startBalance){
        deals[dealId].investorAddress.transfer(deals[dealId].amount);
      }else if(finishAmount>deals[dealId].targetBalance){
@@ -63,6 +62,7 @@ function getSplit(uint finishAmount, uint startBalance, uint targetBalance, uint
         deals[dealId].traderAddress.transfer(split);
         deals[dealId].investorAddress.transfer(deals[dealId].amount - split);
      }
+     deals[dealId].amount = 0;
      deals[dealId].currentState = state.finished;
 }
     function getDealsCount() public constant returns (uint){
